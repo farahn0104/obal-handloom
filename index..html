@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obal Handloom - Product Requirements Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border: #475569;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--accent);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--accent);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: var(--text-secondary);
+        }
+
+        .meta-info {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .meta-info div {
+            margin-bottom: 8px;
+        }
+
+        .meta-info strong {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+
+        nav {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        nav h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            background: var(--bg-tertiary);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        section {
+            background: var(--bg-secondary);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--accent);
+        }
+
+        h1 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 2.2em;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--accent);
+            margin: 30px 0 15px 0;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: var(--success);
+            margin: 25px 0 12px 0;
+            font-size: 1.4em;
+        }
+
+        h4 {
+            color: var(--warning);
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: var(--text-primary);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+        }
+
+        .highlight-box {
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .success-box {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .danger-box {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: var(--accent);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .badge-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: var(--bg-tertiary);
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 3px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-card h4 {
+            margin-top: 0;
+            color: var(--accent);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-primary);
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 50px;
+            border-top: 3px solid var(--accent);
+        }
+
+        footer p {
+            color: var(--text-muted);
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            nav ul {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 20px;
+            }
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+        }
+
+        .scroll-to-top:hover {
+            background: var(--accent-dark);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🧵 Obal Handloom</h1>
+        <p>Product Requirements Document (PRD)</p>
+    </header>
+
+    <div class="container">
+        <div class="meta-info">
+            <div><strong>Document Version:</strong> 1.0</div>
+            <div><strong>Created Date:</strong> January 18, 2026</div>
+            <div><strong>Last Updated:</strong> January 18, 2026</div>
+            <div><strong>Status:</strong> <span class="badge badge-warning">Draft - Ready for Review</span></div>
+        </div>
+
+        <nav>
+            <h3>📑 Table of Contents</h3>
+            <ul>
+                <li><a href="#overview">1. Project Overview</a></li>
+                <li><a href="#users">2. User Roles & Access</a></li>
+                <li><a href="#material">3. Material Management</a></li>
+                <li><a href="#costing">4. Product Costing</a></li>
+                <li><a href="#clients">5. Client Management</a></li>
+                <li><a href="#billing">6. GST Billing</a></li>
+                <li><a href="#purchase">7. Purchase Management</a></li>
+                <li><a href="#dashboard">8. Dashboard & Analytics</a></li>
+                <li><a href="#reports">9. Reports & Exports</a></li>
+                <li><a href="#auth">10. Authentication</a></li>
+                <li><a href="#notifications">11. Notifications</a></li>
+                <li><a href="#technical">12. Technical Specs</a></li>
+                <li><a href="#timeline">13. Project Timeline</a></li>
+            </ul>
+        </nav>
+
+        <section id="overview">
+            <h1>1. Project Overview</h1>
+            
+            <h3>Product Name</h3>
+            <p><strong>Obal Handloom Management System</strong></p>
+
+            <h3>Product Vision</h3>
+            <p>Ek comprehensive web-based management system jo Obal Handloom ke saare business operations ko digitize aur streamline karega - material management se lekar billing, payments, production tracking aur vendor management tak.</p>
+
+            <h3>Business Context</h3>
+            <p>Obal Handloom ek textile manufacturing company hai jo Gamcha, Lungi aur related products banati hai. Company apne power looms aur external weavers (baani binne wale) dono se production karati hai. Is system ka primary goal hai complete transparency, accurate tracking, aur efficient financial management ensure karna.</p>
+
+            <div class="success-box">
+                <h4>✅ Success Metrics</h4>
+                <ul>
+                    <li>Material shrinkage 5% ke andar control karna</li>
+                    <li>Bill generation time 80% reduce karna</li>
+                    <li>Payment tracking 100% accurate</li>
+                    <li>Manual errors eliminate karna</li>
+                    <li>Real-time production visibility</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="users">
+            <h1>2. User Roles & Access Levels</h1>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>👔 Admin (Seth/Owner)</h4>
+                    <p><span class="badge badge-danger">Full Access</span></p>
+                    <ul>
+                        <li>Material issue aur receive</li>
+                        <li>Bills generate</li>
+                        <li>Payments manage</li>
+                        <li>Reports dekhna</li>
+                        <li>Master data manage</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🧑‍💼 Client (Customer)</h4>
+                    <p><span class="badge badge-warning">Limited View</span></p>
+                    <ul>
+                        <li>Apni bills dekhna</li>
+                        <li>Payment history</li>
+                        <li>Pending payments track</li>
+                        <li>Online payment</li>
+                        <li>Bills download (PDF)</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>👨‍🏭 Baani (Weaver)</h4>
+                    <p><span class="badge badge-warning">Limited View</span></p>
+                    <ul>
+                        <li>Received material dekhna</li>
+                        <li>Pending material returns</li>
+                        <li>Payment history</li>
+                        <li>Production record</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="material">
+            <h1>3. Material & Production Management</h1>
+
+            <h3>3.1 Material Issue to Baani</h3>
+            <p>Material issue karte waqt following details capture hongi:</p>
+
+            <div class="highlight-box">
+                <h4>Required Fields:</h4>
+                <ul>
+                    <li><strong>Date of issue</strong></li>
+                    <li><strong>Baani binne wala name</strong> (dropdown - registered profiles)</li>
+                    <li><strong>Material type:</strong>
+                        <ul>
+                            <li><strong>Dhaaga (Thread)</strong>: Color selection + Quantity in KG</li>
+                            <li><strong>Beam</strong>: Beam name/ID, Product type, Associated dhaaga quantity, Rate per piece</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <h3>3.2 Product Receipt from Baani</h3>
+            <div class="highlight-box">
+                <h4>Auto Calculations:</h4>
+                <ul>
+                    <li><strong>Total amount</strong> = Quantity × Rate per piece</li>
+                    <li><strong>Material consumed</strong> = Issued material - Returned material - Product weight</li>
+                    <li><strong>Shrinkage %</strong> = (Material consumed - Expected) / Issued × 100</li>
+                    <li><strong>Alert agar shrinkage > 5%</strong></li>
+                </ul>
+            </div>
+
+            <h3>3.3 Shrinkage Management</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Shrinkage %</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>< 5%</td>
+                        <td><span class="badge badge-success">Acceptable</span></td>
+                        <td>No action needed</td>
+                    </tr>
+                    <tr>
+                        <td>5-7%</td>
+                        <td><span class="badge badge-warning">Warning</span></td>
+                        <td>Monitor closely</td>
+                    </tr>
+                    <tr>
+                        <td>> 7%</td>
+                        <td><span class="badge badge-danger">Critical</span></td>
+                        <td>Alert + Investigation</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>3.4 Baani Profile Management</h3>
+            <p>Complete profile management with following details:</p>
+            <ul>
+                <li>Personal Details: Name, Mobile, Address, Aadhar, PAN</li>
+                <li>Bank Details: Account Number, IFSC, UPI ID</li>
+                <li>Material Tracking: Pending material (color-wise)</li>
+                <li>Production History: Complete transaction log</li>
+                <li>Payment History: All payments with modes</li>
+            </ul>
+        </section>
+
+        <section id="costing">
+            <h1>4. Product Costing Calculator</h1>
+
+            <h3>Costing Components</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>💰 Dhaaga Cost</h4>
+                    <p>Per KG rate × Quantity</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎯 Beam Cost</h4>
+                    <p>Per beam rate × Quantity</p>
+                </div>
+                <div class="feature-card">
+                    <h4>👨‍🏭 Labour Charges</h4>
+                    <p>Per piece OR per KG</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📦 Packaging</h4>
+                    <p>Per unit rate × Quantity</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🚚 Transport</h4>
+                    <p>Flat OR per KG</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⚙️ Overheads</h4>
+                    <p>Miscellaneous expenses</p>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>Output</h4>
+                <ul>
+                    <li><strong>Total Production Cost</strong></li>
+                    <li><strong>Cost per Piece</strong></li>
+                    <li><strong>Cost per KG</strong></li>
+                    <li>Save as template for future reference</li>
+                    <li>Export costing sheet (PDF/Excel)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="clients">
+            <h1>5. Client Management & Billing</h1>
+
+            <h3>5.1 Client Profile</h3>
+            <div class="highlight-box">
+                <h4>Required Fields:</h4>
+                <ul>
+                    <li>Client Name (Business/Individual)</li>
+                    <li>Contact Person, Mobile, Email</li>
+                    <li>Complete Address with State</li>
+                    <li>GST Number (GSTIN), PAN, Aadhar</li>
+                    <li>Bank Account Details</li>
+                    <li>Credit Terms (Payment reminder: 15 days)</li>
+                </ul>
+            </div>
+
+            <h3>5.2 Client Dashboard Features</h3>
+            <ul>
+                <li>Total bills generated</li>
+                <li>Payments received vs pending</li>
+                <li>Product purchase history</li>
+                <li>Quick actions: New bill, Record payment, Send reminder</li>
+            </ul>
+        </section>
+
+        <section id="billing">
+            <h1>6. GST Bill Generation</h1>
+
+            <h3>6.1 Bill Structure</h3>
+            
+            <div class="warning-box">
+                <h4>📝 Bill Number Format</h4>
+                <p><code>MMM/YY/XXX</code> (Example: <code>JAN/26/001</code>)</p>
+                <p>Auto-increment sequential numbering with financial year wise reset option</p>
+            </div>
+
+            <h3>6.2 Bill Header Information</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Details</th>
+                        <th>Editable</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Company Details</strong></td>
+                        <td>Name, Address, GST No, Phone, Email, Logo</td>
+                        <td>✅ Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Client Details</strong></td>
+                        <td>Auto-filled from profile (except phone)</td>
+                        <td>✅ Yes (in bill)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transport Info</strong></td>
+                        <td>Name, Vehicle No, LR No, Destination, Date</td>
+                        <td>✅ Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>6.3 Product Details Table</h3>
+            <div class="highlight-box">
+                <h4>Columns:</h4>
+                <ol>
+                    <li>Serial Number (auto-increment)</li>
+                    <li>Product Name/Description (dropdown + custom)</li>
+                    <li>HSN Code (default: 5208, editable)</li>
+                    <li>Quantity (in pieces/meters)</li>
+                    <li>Unit (pcs, meters, etc.)</li>
+                    <li>Rate per Unit</li>
+                    <li>Amount (auto-calculate: Quantity × Rate)</li>
+                    <li>Action buttons (Add more, Delete row)</li>
+                </ol>
+            </div>
+
+            <h3>6.4 GST Calculation</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Condition</th>
+                        <th>Default Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-success">Intra-State</span></td>
+                        <td>Same State</td>
+                        <td>CGST: 2.5% + SGST: 2.5%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">Inter-State</span></td>
+                        <td>Different State</td>
+                        <td>IGST: 5%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <h4>⚠️ E-way Bill</h4>
+                <p>Auto-generate e-way bill if <strong>Grand Total > ₹50,000</strong></p>
+            </div>
+
+            <h3>6.5 Payment Features</h3>
+            <ul>
+                <li><strong>QR Code:</strong> Auto-generate UPI QR with embedded amount</li>
+                <li><strong>Online Payment:</strong> Razorpay/Phonepe/Paytm integration</li>
+                <li><strong>Auto-reconciliation:</strong> Payment successful → Bill marked "Paid"</li>
+                <li><strong>Partial Payment:</strong> Track multiple payments against one bill</li>
+            </ul>
+
+            <h3>6.6 Bill Actions</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📄 Preview & Download</h4>
+                    <p>PDF preview, Print, Download</p>
+                </div>
+                <div class="feature-card">
+                    <h4>✏️ Edit & Manage</h4>
+                    <p>Edit (if not sent/paid), Cancel, Duplicate</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📤 Share Options</h4>
+                    <p>WhatsApp, Email, SMS (with bill link)</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💰 Payment Recording</h4>
+                    <p>Cash, UPI, Bank Transfer, Cheque, Online</p>
+                </div>
+            </div>
+
+            <h3>6.7 Automated Payment Reminders</h3>
+            <div class="success-box">
+                <p><strong>Auto-send reminders every 15 days via Email + WhatsApp + SMS</strong></p>
+                <p>Reminder includes: Bill number, Amount due, Payment link, Days overdue</p>
+                <p><strong>Schedule:</strong></p>
+                <ul>
+                    <li>Day 0: Bill generated (initial notification)</li>
+                    <li>Day 15: 1st reminder</li>
+                    <li>Day 30: 2nd reminder</li>
+                    <li>Day 45: 3rd reminder</li>
+                    <li>Continue every 15 days until paid</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="purchase">
+            <h1>7. Purchase Management</h1>
+
+            <h3>7.1 Vendor Management</h3>
+            <p>Complete vendor profiles with following details:</p>
+            <ul>
+                <li>Vendor Name, Contact Person, Mobile, Email</li>
+                <li>GST Number, PAN</li>
+                <li>Vendor Type: Dhaaga Supplier, Beam Supplier, Packaging, Others</li>
+                <li>Bank Details (for payment)</li>
+            </ul>
+
+            <h3>7.2 Purchase Entry</h3>
+            <div class="highlight-box">
+                <h4>Fields:</h4>
+                <ul>
+                    <li>Purchase Date, Vendor Name</li>
+                    <li>Invoice Number (vendor invoice)</li>
+                    <li>Purchase Type: Roto Beam Dhaaga, Regular Dhaaga, Beams, Packaging, Others</li>
+                    <li>Product Details: Item name, Quantity, Unit, Rate, Amount</li>
+                    <li>Payment Mode: Cash, Credit, UPI, Bank Transfer, Cheque</li>
+                    <li>Attachments: Vendor invoice, Payment proof, Delivery challan</li>
+                </ul>
+            </div>
+
+            <h3>7.3 Purchase Dashboard</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📊 Overview Widgets</h4>
+                    <ul>
+                        <li>Total purchases (this month)</li>
+                        <li>Pending payments to vendors</li>
+                        <li>Top vendors by value</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>🔍 Search & Filter</h4>
+                    <ul>
+                        <li>Vendor name</li>
+                        <li>Product/Item name</li>
+                        <li>Invoice number</li>
+                        <li>Date range, Amount range</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard">
+            <h1>8. Dashboard & Analytics</h1>
+
+            <h3>8.1 Quick Actions Panel</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>➕ New Bill</h4>
+                </div>
+                <div class="feature-card">
+                    <h4>📦 Material Issue</h4>
+                </div>
+                <div class="feature-card">
+                    <h4>💰 Payment Receive</h4>
+                </div>
+                <div class="feature-card">
+                    <h4>🛒 New Purchase</h4>
+                </div>
+                <div class="feature-card">
+                    <h4>👤 Add Client</h4>
+                </div>
+                <div class="feature-card">
+                    <h4>👷 Add Baani</h4>
+                </div>
+            </div>
+
+            <h3>8.2 Pending Actions Widget</h3>
+            <div class="danger-box">
+                <h4>🚨 Real-time Notifications:</h4>
+                <ul>
+                    <li><strong>Bills Pending Payment</strong> - Count + Total amount + Overdue highlighted</li>
+                    <li><strong>Material Return Pending</strong> - Baani-wise + Total KG + Days pending</li>
+                    <li><strong>Payment Reminders Due</strong> - Clients due for 15-day reminder + One-click send all</li>
+                </ul>
+            </div>
+
+            <h3>8.3 Production Overview</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Description</th>
+                        <th>Filters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total Production</td>
+                        <td>In pieces & KG</td>
+                        <td rowspan="6">Today / Week / Month / Year</td>
+                    </tr>
+                    <tr>
+                        <td>Beams Issued/Completed</td>
+                        <td>Status tracking</td>
+                    </tr>
+                    <tr>
+                        <td>Active Baani Count</td>
+                        <td>Currently working</td>
+                    </tr>
+                    <tr>
+                        <td>Material in Circulation</td>
+                        <td>Total KG with all baanis</td>
+                    </tr>
+                    <tr>
+                        <td>Top 5 Baanis</td>
+                        <td>By production (current month)</td>
+                    </tr>
+                    <tr>
+                        <td>Product-wise Breakdown</td>
+                        <td>Distribution chart</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>8.4 Sales Overview</h3>
+            <div class="success-box">
+                <h4>Key Metrics (Filterable: Today/Week/Month/Year):</h4>
+                <ul>
+                    <li>Total Bills Generated</li>
+                    <li>Total Sales Amount</li>
+                    <li>Total Payments Received</li>
+                    <li>Pending Payments</li>
+                    <li>Average Bill Value</li>
+                    <li>Top 5 Clients by purchase value</li>
+                </ul>
+            </div>
+
+            <h3>8.5 Financial Summary</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Calculation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-success">Total Revenue</span></td>
+                        <td>Sales amount</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-warning">Total Expenses</span></td>
+                        <td>Purchases + Labour</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">Gross Profit/Loss</span></td>
+                        <td>Revenue - Expenses</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">Profit Margin %</span></td>
+                        <td>(Profit / Revenue) × 100</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">Cash Flow</span></td>
+                        <td>In vs Out</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>8.6 Comparison View - Month over Month</h3>
+            <div class="highlight-box">
+                <h4>📈 This Month vs Last Month:</h4>
+                <ul>
+                    <li>Production (pieces & KG) with % change indicators (↑ ↓)</li>
+                    <li>Sales Amount with growth rate</li>
+                    <li>Profit/Loss comparison</li>
+                    <li>Visual graphs/charts for trend analysis</li>
+                </ul>
+                <h4>📊 Year-over-Year Comparison:</h4>
+                <ul>
+                    <li>Same month last year comparison</li>
+                    <li>Trend analysis</li>
+                    <li>Growth rate calculation</li>
+                </ul>
+            </div>
+
+            <h3>8.7 Filter Controls</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📅 Global Date Filters</h4>
+                    <ul>
+                        <li>Today</li>
+                        <li>This Week</li>
+                        <li>This Month</li>
+                        <li>Last Month</li>
+                        <li>This Quarter</li>
+                        <li>This Year</li>
+                        <li>Custom Date Range</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Visual Analytics</h4>
+                    <ul>
+                        <li>Production trend (line chart)</li>
+                        <li>Sales trend (line chart)</li>
+                        <li>Product-wise sales (pie chart)</li>
+                        <li>Baani-wise production (bar chart)</li>
+                        <li>Payment status (donut chart)</li>
+                        <li>Monthly profit/loss (bar chart)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="reports">
+            <h1>9. Reports & Exports</h1>
+
+            <h3>9.1 GST Reports</h3>
+            <div class="warning-box">
+                <h4>📋 Available Reports:</h4>
+                <ul>
+                    <li><strong>Sales Register:</strong> All sales bills with GST breakup (CGST, SGST, IGST)</li>
+                    <li><strong>Purchase Register:</strong> All purchases with input tax credit</li>
+                    <li><strong>GSTR-1 Ready Report:</strong> B2B, B2C invoices summarized</li>
+                    <li><strong>GSTR-3B Ready Report:</strong> Outward supplies + Input tax credit summary</li>
+                </ul>
+            </div>
+
+            <h3>9.2 Production Reports</h3>
+            <ul>
+                <li>Baani-wise production summary</li>
+                <li>Product-wise production summary</li>
+                <li>Beam completion report</li>
+                <li>Shrinkage analysis report</li>
+                <li>Material consumption report</li>
+            </ul>
+
+            <h3>9.3 Financial Reports</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>💰 P&L Statement</h4>
+                    <p>Profit & Loss with detailed breakdown</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Sales Summary</h4>
+                    <p>Client-wise, product-wise, date-wise</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🛒 Purchase Summary</h4>
+                    <p>Vendor-wise, category-wise</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💳 Outstanding Payments</h4>
+                    <p>Receivable & Payable aging</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📈 Cash Flow Report</h4>
+                    <p>Inflow vs Outflow tracking</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📒 Ledgers</h4>
+                    <p>Client, Baani, Vendor ledgers</p>
+                </div>
+            </div>
+
+            <h3>9.4 Export Features</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Format</th>
+                        <th>Use Case</th>
+                        <th>Features</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-danger">PDF</span></td>
+                        <td>Formatted reports</td>
+                        <td>Company header, Professional layout</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-success">Excel</span></td>
+                        <td>Raw data analysis</td>
+                        <td>With formulas, Pivot-ready</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">CSV</span></td>
+                        <td>External software import</td>
+                        <td>Universal compatibility</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="auth">
+            <h1>10. User Management & Authentication</h1>
+
+            <h3>10.1 Multi-Factor Authentication</h3>
+            <div class="danger-box">
+                <h4>🔐 Two-Step Login Process:</h4>
+                <p><strong>Step 1:</strong> Username/Email + Password</p>
+                <ul>
+                    <li>Enter registered email/mobile</li>
+                    <li>Enter password (strong password requirements)</li>
+                    <li>"Remember me" option</li>
+                </ul>
+                <p><strong>Step 2:</strong> OTP Verification</p>
+                <ul>
+                    <li>OTP sent to registered mobile (SMS)</li>
+                    <li>OTP sent to registered email</li>
+                    <li>Enter 6-digit OTP (valid for 5 minutes)</li>
+                    <li>Resend OTP option (after 30 seconds)</li>
+                </ul>
+            </div>
+
+            <h3>10.2 Security Features</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Implementation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Failed Login Attempts</td>
+                        <td>Max 3 attempts → 15 min lockout</td>
+                    </tr>
+                    <tr>
+                        <td>Password Requirements</td>
+                        <td>Min 8 chars, 1 upper, 1 lower, 1 number, 1 special</td>
+                    </tr>
+                    <tr>
+                        <td>Session Timeout</td>
+                        <td>30 minutes of inactivity</td>
+                    </tr>
+                    <tr>
+                        <td>Password Reset</td>
+                        <td>Via OTP verification</td>
+                    </tr>
+                    <tr>
+                        <td>Activity Logging</td>
+                        <td>All critical actions tracked</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>10.3 User Activity Logs</h3>
+            <p>Track following activities:</p>
+            <ul>
+                <li>Login/Logout timestamps</li>
+                <li>Bill creation/editing</li>
+                <li>Payment entries</li>
+                <li>Material transactions</li>
+                <li>Profile updates</li>
+                <li>Report downloads</li>
+                <li>Failed login attempts</li>
+            </ul>
+        </section>
+
+        <section id="notifications">
+            <h1>11. Notifications System</h1>
+
+            <h3>11.1 Notification Channels</h3>
+            <div class="success-box">
+                <p><strong>All notifications sent via all three channels simultaneously:</strong></p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>📧 Email</h4>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📱 WhatsApp</h4>
+                    </div>
+                    <div class="feature-card">
+                        <h4>💬 SMS</h4>
+                    </div>
+                </div>
+            </div>
+
+            <h3>11.2 Client Notifications</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Trigger</th>
+                        <th>Content</th>
+                        <th>Frequency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bill Generated</td>
+                        <td>Bill No, Date, Amount, Download Link, Payment Link</td>
+                        <td>Once</td>
+                    </tr>
+                    <tr>
+                        <td>Payment Reminder</td>
+                        <td>Bill No, Amount Due, Days Overdue, Payment Link</td>
+                        <td>Every 15 days</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>11.3 Baani Notifications</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Trigger</th>
+                        <th>Content</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Material Issued</td>
+                        <td>Date, Material type & quantity (color-wise), Total KG</td>
+                    </tr>
+                    <tr>
+                        <td>Payment Made</td>
+                        <td>Date, Amount, Mode, Transaction Ref, Balance Due</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>11.4 Notification Settings</h3>
+            <p>Admin controls:</p>
+            <ul>
+                <li>Enable/Disable notifications per channel</li>
+                <li>Edit notification templates</li>
+                <li>Set reminder frequency</li>
+                <li>Delivery status tracking (Sent/Failed/Delivered)</li>
+                <li>Retry mechanism for failed notifications</li>
+            </ul>
+        </section>
+
+        <section id="technical">
+            <h1>12. Technical Specifications</h1>
+
+            <h3>12.1 Platform & Architecture</h3>
+            <div class="highlight-box">
+                <p><strong>Platform Type:</strong> Web Application (Browser-based)</p>
+                <p><strong>Fully Responsive Design</strong> - Compatible with:</p>
+                <ul>
+                    <li>Desktop (Windows, Mac, Linux)</li>
+                    <li>Tablets (iPad, Android)</li>
+                    <li>Mobile phones (iOS, Android)</li>
+                </ul>
+            </div>
+
+            <h3>12.2 Recommended Technology Stack</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Layer</th>
+                        <th>Technologies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Frontend</strong></td>
+                        <td>React.js / Next.js, TypeScript, Tailwind CSS, Chart.js</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Backend</strong></td>
+                        <td>Node.js + Express / Django / Laravel, RESTful API, JWT</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Database</strong></td>
+                        <td>PostgreSQL / MySQL, Redis (caching)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cloud Storage</strong></td>
+                        <td>AWS S3 / Google Cloud Storage</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Payment Gateway</strong></td>
+                        <td>Razorpay (recommended) / Phonepe / Paytm</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Notifications</strong></td>
+                        <td>Email: SendGrid, SMS: Twilio/MSG91, WhatsApp: Twilio API</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>12.3 Database Schema (High-Level)</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Core Tables</h4>
+                    <ul>
+                        <li>users</li>
+                        <li>companies</li>
+                        <li>clients</li>
+                        <li>baanis</li>
+                        <li>vendors</li>
+                        <li>products</li>
+                        <li>beams</li>
+                        <li>colors</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>Transaction Tables</h4>
+                    <ul>
+                        <li>material_issues</li>
+                        <li>product_receipts</li>
+                        <li>bills</li>
+                        <li>payments</li>
+                        <li>purchases</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>System Tables</h4>
+                    <ul>
+                        <li>notifications</li>
+                        <li>activity_logs</li>
+                        <li>settings</li>
+                        <li>bank_accounts</li>
+                        <li>bill_templates</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>12.4 Security Features</h3>
+            <div class="danger-box">
+                <h4>🔒 Security Measures:</h4>
+                <ul>
+                    <li><strong>Data Security:</strong> Passwords hashed (bcrypt), Sensitive data encrypted, HTTPS/SSL mandatory</li>
+                    <li><strong>Protection:</strong> SQL injection prevention, XSS protection, CSRF tokens</li>
+                    <li><strong>Authentication:</strong> Multi-factor (Password + OTP), JWT tokens, Role-based access control</li>
+                    <li><strong>Backup:</strong> Daily automated backups, 90 days retention, One-click restore</li>
+                    <li><strong>Audit Trail:</strong> All critical actions logged, Tamper-proof logs</li>
+                </ul>
+            </div>
+
+            <h3>12.5 Performance Optimization</h3>
+            <ul>
+                <li><strong>Frontend:</strong> Lazy loading, Image optimization, Code splitting, Caching</li>
+                <li><strong>Backend:</strong> Database query optimization, API response caching, Load balancing</li>
+                <li><strong>Database:</strong> Proper indexing, Connection pooling, Regular maintenance</li>
+            </ul>
+
+            <h3>12.6 Browser & Device Support</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Support</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Browsers</td>
+                        <td>Chrome, Firefox, Safari, Edge (latest 2 versions)</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile</td>
+                        <td>< 640px (Touch-friendly, Swipe gestures)</td>
+                    </tr>
+                    <tr>
+                        <td>Tablet</td>
+                        <td>640px - 1024px</td>
+                    </tr>
+                    <tr>
+                        <td>Desktop</td>
+                        <td>> 1024px</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="timeline">
+            <h1>13. Project Timeline & Milestones</h1>
+
+            <h3>Development Phases</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Phase 1: Foundation (4-6 weeks)</h4>
+                    <ul>
+                        <li>Database design</li>
+                        <li>User authentication</li>
+                        <li>Basic UI framework</li>
+                        <li>Admin dashboard skeleton</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Phase 2: Core Modules (8-10 weeks)</h4>
+                    <ul>
+                        <li>Material management</li>
+                        <li>Baani profiles</li>
+                        <li>Product costing</li>
+                        <li>Client management</li>
+                        <li>Basic billing</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Phase 3: Advanced Billing & Payments (4-6 weeks)</h4>
+                    <ul>
+                        <li>Complete GST billing</li>
+                        <li>Payment gateway integration</li>
+                        <li>Notifications system</li>
+                        <li>PDF generation</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Phase 4: Reports & Analytics (3-4 weeks)</h4>
+                    <ul>
+                        <li>Dashboard with filters</li>
+                        <li>Standard reports</li>
+                        <li>GST reports</li>
+                        <li>Export features</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Phase 5: Purchase & Additional Features (3-4 weeks)</h4>
+                    <ul>
+                        <li>Purchase management</li>
+                        <li>Vendor management</li>
+                        <li>Advanced search & filters</li>
+                        <li>Master data management</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Phase 6: Testing & Refinement (3-4 weeks)</h4>
+                    <ul>
+                        <li>Functional testing</li>
+                        <li>Security testing</li>
+                        <li>Performance optimization</li>
+                        <li>Bug fixes & UAT</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Phase 7: Deployment & Training (2 weeks)</h4>
+                    <ul>
+                        <li>Production deployment</li>
+                        <li>Data migration</li>
+                        <li>User training</li>
+                        <li>Documentation & Go-live</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>📅 Total Estimated Timeline:</h4>
+                <p><strong>27-38 weeks (6-9 months)</strong></p>
+            </div>
+
+            <h3>Key Milestones</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Milestone</th>
+                        <th>Deliverable</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-primary">M1</span></td>
+                        <td>Database & Authentication Ready</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">M2</span></td>
+                        <td>Material Management Module Complete</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">M3</span></td>
+                        <td>Billing Module Complete</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">M4</span></td>
+                        <td>Payment Gateway Integrated</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">M5</span></td>
+                        <td>All Reports Ready</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-success">M6</span></td>
+                        <td>UAT Completed</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-success">M7</span></td>
+                        <td>Production Go-Live 🚀</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h1>14. Success Criteria & Launch</h1>
+
+            <h3>14.1 Launch Criteria</h3>
+            <div class="success-box">
+                <h4>✅ Functional Requirements:</h4>
+                <ul>
+                    <li>All core features working as specified</li>
+                    <li>Zero critical bugs</li>
+                    <li>Performance benchmarks met (page load < 3s, API < 500ms)</li>
+                    <li>Security audit passed</li>
+                </ul>
+
+                <h4>✅ User Acceptance:</h4>
+                <ul>
+                    <li>UAT sign-off by admin</li>
+                    <li>Training completed for all user roles</li>
+                    <li>Documentation ready (User guides, Technical docs)</li>
+                </ul>
+            </div>
+
+            <h3>14.2 Post-Launch Success Metrics</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timeline</th>
+                        <th>Success Metrics</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Month 1</strong></td>
+                        <td>System uptime > 99%, All users onboarded, Zero data loss</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Month 3</strong></td>
+                        <td>100% bills via system, Accurate payment tracking, User satisfaction > 4/5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Month 6</strong></td>
+                        <td>50% time saved, <1% billing errors, Shrinkage within 5%, ROI positive</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h1>15. Future Enhancements (Post-MVP)</h1>
+
+            <h3>Phase 2 Features</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📦 Inventory Management</h4>
+                    <ul>
+                        <li>Raw material stock tracking</li>
+                        <li>Finished goods inventory</li>
+                        <li>Low stock alerts</li>
+                        <li>Automatic reorder points</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>📊 Advanced Analytics</h4>
+                    <ul>
+                        <li>Predictive analytics</li>
+                        <li>Demand forecasting</li>
+                        <li>Profitability per product</li>
+                        <li>Customer lifetime value</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>📱 Mobile Apps</h4>
+                    <ul>
+                        <li>Native iOS app</li>
+                        <li>Native Android app</li>
+                        <li>Offline mode support</li>
+                        <li>Push notifications</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🛒 E-commerce</h4>
+                    <ul>
+                        <li>Online store</li>
+                        <li>Product catalog</li>
+                        <li>Shopping cart</li>
+                        <li>Direct sales</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Phase 3 Features</h3>
+            <ul>
+                <li><strong>Multi-location Support:</strong> Multiple godowns/branches, Stock transfer</li>
+                <li><strong>Production Planning:</strong> Scheduling, Capacity planning, Machine allocation</li>
+                <li><strong>CRM Features:</strong> Lead management, Follow-ups, Customer segmentation</li>
+                <li><strong>Integration:</strong> Tally, QuickBooks, E-way Bill API, Banking, Logistics</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>16. Glossary</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Term</th>
+                        <th>Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Baani Binne Wale</strong></td>
+                        <td>Weavers who work on contract basis</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Seth</strong></td>
+                        <td>Business owner/admin</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gamcha</strong></td>
+                        <td>Traditional towel/cloth</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lungi</strong></td>
+                        <td>Traditional lower garment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Beam</strong></td>
+                        <td>Cylindrical structure holding thread for weaving</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dhaaga</strong></td>
+                        <td>Thread/Yarn</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chauka</strong></td>
+                        <td>Single piece of fabric</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Shrinkage</strong></td>
+                        <td>Material loss during production</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HSN Code</strong></td>
+                        <td>Harmonized System of Nomenclature (for GST)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CGST</strong></td>
+                        <td>Central Goods and Services Tax</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SGST</strong></td>
+                        <td>State Goods and Services Tax</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IGST</strong></td>
+                        <td>Integrated Goods and Services Tax</td>
+                    </tr>
+                    <tr>
+                        <td><strong>E-way Bill</strong></td>
+                        <td>Electronic way bill for goods transport</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h1>Quick Reference - Feature Checklist</h1>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>✅ Material Management</h4>
+                    <ul>
+                        <li>✓ Material issue (dhaaga + beam)</li>
+                        <li>✓ Product receipt</li>
+                        <li>✓ Shrinkage calculation & alerts</li>
+                        <li>✓ Baani profile management</li>
+                        <li>✓ Material return tracking</li>
+                        <li>✓ Color-wise dhaaga tracking</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>✅ Product Costing</h4>
+                    <ul>
+                        <li>✓ Multi-component costing</li>
+                        <li>✓ Cost per piece/kg calculation</li>
+                        <li>✓ Cost templates</li>
+                        <li>✓ Export costing sheets</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>✅ Client Management</h4>
+                    <ul>
+                        <li>✓ Client profiles</li>
+                        <li>✓ GST bill generation</li>
+                        <li>✓ Multi-product bills</li>
+                        <li>✓ CGST/SGST/IGST support</li>
+                        <li>✓ E-way bill tracking</li>
+                        <li>✓ Multiple bill templates</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>✅ Payments</h4>
+                    <ul>
+                        <li>✓ Payment gateway integration</li>
+                        <li>✓ Multi-mode payment support</li>
+                        <li>✓ Payment tracking</li>
+                        <li>✓ Partial payment handling</li>
+                        <li>✓ Auto-reconciliation</li>
+                        <li>✓ Payment reminders (15-day)</li>
+                        <li>✓ QR code for UPI</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>✅ Purchase Management</h4>
+                    <ul>
+                        <li>✓ Vendor management</li>
+                        <li>✓ Purchase entry</li>
+                        <li>✓ Payment tracking</li>
+                        <li>✓ Purchase reports</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>✅ Dashboard & Analytics</h4>
+                    <ul>
+                        <li>✓ Quick action buttons</li>
+                        <li>✓ Pending actions widget</li>
+                        <li>✓ Production overview</li>
+                        <li>✓ Sales overview</li>
+                        <li>✓ Financial summary</li>
+                        <li>✓ Comparison view (MoM)</li>
+                        <li>✓ Visual charts/graphs</li>
+                        <li>✓ Multi-level filters</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>✅ Reports</h4>
+                    <ul>
+                        <li>✓ GST reports (GSTR-1, GSTR-3B)</li>
+                        <li>✓ Production reports</li>
+                        <li>✓ Financial reports</li>
+                        <li>✓ PDF/Excel export</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>✅ Search & Filters</h4>
+                    <ul>
+                        <li>✓ Bills search</li>
+                        <li>✓ Material transactions search</li>
+                        <li>✓ Purchase records search</li>
+                        <li>✓ Advanced filters</li>
+                        <li>✓ Sort options</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>✅ Notifications</h4>
+                    <ul>
+                        <li>✓ Email notifications</li>
+                        <li>✓ WhatsApp notifications</li>
+                        <li>✓ SMS notifications</li>
+                        <li>✓ Bill generation alerts</li>
+                        <li>✓ Payment reminders</li>
+                        <li>✓ Material issue alerts</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>✅ Security & Access</h4>
+                    <ul>
+                        <li>✓ Multi-factor authentication</li>
+                        <li>✓ Role-based access</li>
+                        <li>✓ Activity logs</li>
+                        <li>✓ Data encryption</li>
+                        <li>✓ Secure sessions</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4>✅ User Experience</h4>
+                    <ul>
+                        <li>✓ Fully responsive design</li>
+                        <li>✓ Cross-device compatibility</li>
+                        <li>✓ Bulk operations</li>
+                        <li>✓ Data import/export</li>
+                        <li>✓ Template system</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success-box" style="margin-top: 30px; text-align: center;">
+                <h2 style="color: var(--success); margin-bottom: 10px;">🚀 PRD COMPLETE - READY FOR DEVELOPMENT</h2>
+                <p style="font-size: 1.1em;">All requirements documented and ready for implementation</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Obal Handloom. All rights reserved.</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">Document Version 1.0 | Created: January 18, 2026</p>
+    </footer>
+
+    <div class="scroll-to-top" id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        ↑
+    </div>
+
+    <script>
+        // Scroll to top button visibility
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
